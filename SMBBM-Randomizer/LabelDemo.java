@@ -258,6 +258,12 @@ public class LabelDemo extends JFrame {
 		SeedPanel.add(textField);
 		textField.setColumns(10);
 		
+		JPanel panel_4 = new JPanel();
+		contentPane.add(panel_4, BorderLayout.SOUTH);
+		
+		JButton StartRandomization = new JButton("Randomize!");
+		panel_4.add(StartRandomization);
+		
 		
 	}
 }

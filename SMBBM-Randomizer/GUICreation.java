@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,7 +30,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.SpringLayout;
 import java.awt.Insets;
 
-public class LabelDemo extends JFrame {
+public class GUICreation extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField GreenGoalMin;
@@ -48,7 +47,7 @@ public class LabelDemo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LabelDemo frame = new LabelDemo();
+					GUICreation frame = new GUICreation();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +59,7 @@ public class LabelDemo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LabelDemo() {
+	public GUICreation() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 686, 379);
 		contentPane = new JPanel();
@@ -93,38 +92,38 @@ public class LabelDemo extends JFrame {
 		panel_1.add(panel_3);
 		panel_3.setLayout(new BoxLayout(panel_3, BoxLayout.Y_AXIS));
 		
-		JCheckBox World1Bool = new JCheckBox("World 1");
-		JCheckBox World2Bool = new JCheckBox("World 2");
-		JCheckBox World3Bool = new JCheckBox("World 3");
-		JCheckBox World4Bool = new JCheckBox("World 4");
-		JCheckBox World5Bool = new JCheckBox("World 5");
-		JCheckBox World6Bool = new JCheckBox("World 6");
-		JCheckBox World7Bool = new JCheckBox("World 7");
-		JCheckBox World8Bool = new JCheckBox("World 8");
-		JCheckBox World9Bool = new JCheckBox("World 9");
-		JCheckBox World10Bool = new JCheckBox("World 10");
+		JCheckBox World1Box = new JCheckBox("World 1");
+		JCheckBox World2Box = new JCheckBox("World 2");
+		JCheckBox World3Box = new JCheckBox("World 3");
+		JCheckBox World4Box = new JCheckBox("World 4");
+		JCheckBox World5Box = new JCheckBox("World 5");
+		JCheckBox World6Box = new JCheckBox("World 6");
+		JCheckBox World7Box = new JCheckBox("World 7");
+		JCheckBox World8Box = new JCheckBox("World 8");
+		JCheckBox World9Box = new JCheckBox("World 9");
+		JCheckBox World10Box = new JCheckBox("World 10");
 		
-		panel_3.add(World1Bool);
-		panel_3.add(World2Bool);
-		panel_3.add(World3Bool);
-		panel_3.add(World4Bool);
-		panel_3.add(World5Bool);
-		panel_3.add(World6Bool);
-		panel_3.add(World7Bool);
-		panel_3.add(World8Bool);
-		panel_3.add(World9Bool);
-		panel_3.add(World10Bool);
+		panel_3.add(World1Box);
+		panel_3.add(World2Box);
+		panel_3.add(World3Box);
+		panel_3.add(World4Box);
+		panel_3.add(World5Box);
+		panel_3.add(World6Box);
+		panel_3.add(World7Box);
+		panel_3.add(World8Box);
+		panel_3.add(World9Box);
+		panel_3.add(World10Box);
 		
-		World1Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World2Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World3Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World4Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World5Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World6Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World7Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World8Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World9Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		World10Bool.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World1Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World2Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World3Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World4Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World5Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World6Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World7Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World8Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World9Box.setAlignmentX(Component.CENTER_ALIGNMENT);
+		World10Box.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel LevelSelectionPanel = new JPanel();
 		LevelSelectionPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -142,53 +141,53 @@ public class LabelDemo extends JFrame {
 		JPanel panel_2 = new JPanel();
 		LevelSelectionPanel.add(panel_2);
 		
-		JCheckBox SMB1CasualBool = new JCheckBox("SMB1 Casual");
-		SMB1CasualBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB1NormalBool = new JCheckBox("SMB1 Normal");
-		SMB1NormalBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB1ExpertBool = new JCheckBox("SMB1 Expert");
-		SMB1ExpertBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB1MasterBool = new JCheckBox("SMB1 Master");
-		SMB1MasterBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB2CasualBool = new JCheckBox("SMB2 Casual");
-		SMB2CasualBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB2NormalBool = new JCheckBox("SMB2 Normal");
-		SMB2NormalBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB2ExpertBool = new JCheckBox("SMB2 Expert");
-		SMB2ExpertBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JCheckBox SMB2MasterBool = new JCheckBox("SMB2 Master");
-		SMB2MasterBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		SMB1CasualBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB1NormalBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB1ExpertBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB1MasterBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB2CasualBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB2NormalBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB2ExpertBool.setHorizontalAlignment(SwingConstants.CENTER);
-		SMB2MasterBool.setHorizontalAlignment(SwingConstants.CENTER);
+		JCheckBox SMB1CasualBox = new JCheckBox("SMB1 Casual");
+		SMB1CasualBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB1NormalBox = new JCheckBox("SMB1 Normal");
+		SMB1NormalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB1ExpertBox = new JCheckBox("SMB1 Expert");
+		SMB1ExpertBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB1MasterBox = new JCheckBox("SMB1 Master");
+		SMB1MasterBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB2CasualBox = new JCheckBox("SMB2 Casual");
+		SMB2CasualBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB2NormalBox = new JCheckBox("SMB2 Normal");
+		SMB2NormalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB2ExpertBox = new JCheckBox("SMB2 Expert");
+		SMB2ExpertBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JCheckBox SMB2MasterBox = new JCheckBox("SMB2 Master");
+		SMB2MasterBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		SMB1CasualBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB1NormalBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB1ExpertBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB1MasterBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB2CasualBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB2NormalBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB2ExpertBox.setHorizontalAlignment(SwingConstants.CENTER);
+		SMB2MasterBox.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
-		panel_2.add(SMB1CasualBool);
-		panel_2.add(SMB1NormalBool);
-		panel_2.add(SMB1ExpertBool);
-		panel_2.add(SMB1MasterBool);
-		panel_2.add(SMB2CasualBool);
-		panel_2.add(SMB2NormalBool);
-		panel_2.add(SMB2ExpertBool);
-		panel_2.add(SMB2MasterBool);
+		panel_2.add(SMB1CasualBox);
+		panel_2.add(SMB1NormalBox);
+		panel_2.add(SMB1ExpertBox);
+		panel_2.add(SMB1MasterBox);
+		panel_2.add(SMB2CasualBox);
+		panel_2.add(SMB2NormalBox);
+		panel_2.add(SMB2ExpertBox);
+		panel_2.add(SMB2MasterBox);
 		
-		JCheckBox DeluxeModeBool = new JCheckBox("DX Mode");
-		DeluxeModeBool.setHorizontalAlignment(SwingConstants.CENTER);
-		DeluxeModeBool.setAlignmentX(0.5f);
-		panel_2.add(DeluxeModeBool);
+		JCheckBox DeluxeModeBox = new JCheckBox("DX Mode");
+		DeluxeModeBox.setHorizontalAlignment(SwingConstants.CENTER);
+		DeluxeModeBox.setAlignmentX(0.5f);
+		panel_2.add(DeluxeModeBox);
 		
-		JCheckBox ReverseModeBool = new JCheckBox("Reverse Mode");
-		ReverseModeBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		ReverseModeBool.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(ReverseModeBool);
+		JCheckBox ReverseModeBox = new JCheckBox("Reverse Mode");
+		ReverseModeBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		ReverseModeBox.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(ReverseModeBox);
 		
-		JCheckBox OriginalStageBool = new JCheckBox("OG Stage Mode");
-		OriginalStageBool.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel_2.add(OriginalStageBool);
+		JCheckBox OriginalStageBox = new JCheckBox("OG Stage Mode");
+		OriginalStageBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_2.add(OriginalStageBox);
 		
 		JPanel GoalPanel = new JPanel();
 		panel.add(GoalPanel);
@@ -212,9 +211,9 @@ public class LabelDemo extends JFrame {
 		JLabel GreenMinLabel = new JLabel("Min:");
 		GreenGoal.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JCheckBox GreenGoalRandomized = new JCheckBox("Randomize Green Goals?");
-		GreenGoalRandomized.setAlignmentX(Component.CENTER_ALIGNMENT);
-		GreenGoal.add(GreenGoalRandomized);
+		JCheckBox GreenGoalRandomizedBox = new JCheckBox("Randomize Green Goals?");
+		GreenGoalRandomizedBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		GreenGoal.add(GreenGoalRandomizedBox);
 		GreenGoal.add(GreenMinLabel);
 		GreenGoal.add(GreenGoalMin);
 		
@@ -225,9 +224,9 @@ public class LabelDemo extends JFrame {
 		JPanel RedGoal = new JPanel();
 		GoalPanel.add(RedGoal);
 		
-		JCheckBox RedGoalRandomized = new JCheckBox("Randomize Red Goals?");
-		RedGoalRandomized.setAlignmentX(0.5f);
-		RedGoal.add(RedGoalRandomized);
+		JCheckBox RedGoalRandomizedBox = new JCheckBox("Randomize Red Goals?");
+		RedGoalRandomizedBox.setAlignmentX(0.5f);
+		RedGoal.add(RedGoalRandomizedBox);
 		
 		JLabel RedGoalMinLabel = new JLabel("Min:");
 		RedGoal.add(RedGoalMinLabel);
@@ -248,6 +247,17 @@ public class LabelDemo extends JFrame {
 		Component verticalStrut = Box.createVerticalStrut(150);
 		GoalPanel.add(verticalStrut);
 		
+		JPanel LevelCountPanel = new JPanel();
+		GoalPanel.add(LevelCountPanel);
+		
+		JCheckBox CustomLevelCountBox = new JCheckBox("Custom Level Count:");
+		LevelCountPanel.add(CustomLevelCountBox);
+		
+		LevelCount = new JTextField();
+		LevelCount.setColumns(10);
+		LevelCount.setToolTipText("Use this to set a custom level count. Otherwise, the level count will be the total of all difficulties/worlds selected.");
+		LevelCountPanel.add(LevelCount);
+		
 		JPanel SeedPanel = new JPanel();
 		GoalPanel.add(SeedPanel);
 		
@@ -255,16 +265,9 @@ public class LabelDemo extends JFrame {
 		SeedPanel.add(SeedLabel);
 		
 		Seed = new JTextField();
+		Seed.setColumns(10);
 		Seed.setToolTipText("Use this to seed your randomization!");
 		SeedPanel.add(Seed);
-		Seed.setColumns(10);
-		
-		JLabel LevelCountLabel = new JLabel("Level Count:");
-		SeedPanel.add(LevelCountLabel);
-		
-		LevelCount = new JTextField();
-		SeedPanel.add(LevelCount);
-		LevelCount.setColumns(10);
 		
 		JPanel RandomizeButton = new JPanel();
 		contentPane.add(RandomizeButton, BorderLayout.SOUTH);

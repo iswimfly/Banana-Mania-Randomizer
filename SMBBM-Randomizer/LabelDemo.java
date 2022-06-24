@@ -38,7 +38,8 @@ public class LabelDemo extends JFrame {
 	private JTextField GreenGoalMax;
 	private JTextField RedGoalMin;
 	private JTextField RedGoalMax;
-	private JTextField textField;
+	private JTextField Seed;
+	private JTextField LevelCount;
 
 	/**
 	 * Launch the application.
@@ -250,19 +251,26 @@ public class LabelDemo extends JFrame {
 		JPanel SeedPanel = new JPanel();
 		GoalPanel.add(SeedPanel);
 		
-		JLabel SeedSystem = new JLabel("Seed:");
-		SeedPanel.add(SeedSystem);
+		JLabel SeedLabel = new JLabel("Seed:");
+		SeedPanel.add(SeedLabel);
 		
-		textField = new JTextField();
-		textField.setToolTipText("Use this to seed your randomization!");
-		SeedPanel.add(textField);
-		textField.setColumns(10);
+		Seed = new JTextField();
+		Seed.setToolTipText("Use this to seed your randomization!");
+		SeedPanel.add(Seed);
+		Seed.setColumns(10);
 		
-		JPanel panel_4 = new JPanel();
-		contentPane.add(panel_4, BorderLayout.SOUTH);
+		JLabel LevelCountLabel = new JLabel("Level Count:");
+		SeedPanel.add(LevelCountLabel);
+		
+		LevelCount = new JTextField();
+		SeedPanel.add(LevelCount);
+		LevelCount.setColumns(10);
+		
+		JPanel RandomizeButton = new JPanel();
+		contentPane.add(RandomizeButton, BorderLayout.SOUTH);
 		
 		JButton StartRandomization = new JButton("Randomize!");
-		panel_4.add(StartRandomization);
+		RandomizeButton.add(StartRandomization);
 		
 		
 	}

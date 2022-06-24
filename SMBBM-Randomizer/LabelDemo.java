@@ -34,6 +34,11 @@ import java.awt.Insets;
 public class LabelDemo extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField GreenGoalMin;
+	private JTextField GreenGoalMax;
+	private JTextField RedGoalMin;
+	private JTextField RedGoalMax;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -67,6 +72,7 @@ public class LabelDemo extends JFrame {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		JPanel WorldSelectionPanel = new JPanel();
+		WorldSelectionPanel.setAlignmentY(0.6f);
 		panel.add(WorldSelectionPanel);
 		WorldSelectionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		WorldSelectionPanel.setLayout(new BoxLayout(WorldSelectionPanel, BoxLayout.Y_AXIS));
@@ -77,6 +83,8 @@ public class LabelDemo extends JFrame {
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
 		
 		JLabel lblNewLabel_1 = new JLabel("World Selection");
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_1.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_1.add(lblNewLabel_1);
 		
@@ -171,6 +179,84 @@ public class LabelDemo extends JFrame {
 		DeluxeModeBool.setHorizontalAlignment(SwingConstants.CENTER);
 		DeluxeModeBool.setAlignmentX(0.5f);
 		panel_2.add(DeluxeModeBool);
+		
+		JCheckBox ReverseModeBool = new JCheckBox("Reverse Mode");
+		ReverseModeBool.setAlignmentX(Component.CENTER_ALIGNMENT);
+		ReverseModeBool.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(ReverseModeBool);
+		
+		JCheckBox OriginalStageBool = new JCheckBox("OG Stage Mode");
+		OriginalStageBool.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_2.add(OriginalStageBool);
+		
+		JPanel GoalPanel = new JPanel();
+		panel.add(GoalPanel);
+		GoalPanel.setLayout(new BoxLayout(GoalPanel, BoxLayout.Y_AXIS));
+		
+		JLabel GoalLabel = new JLabel("Goal Randomization");
+		GoalLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		GoalPanel.add(GoalLabel);
+		
+		JPanel GreenGoal = new JPanel();
+		GoalPanel.add(GreenGoal);
+		
+		GreenGoalMin = new JTextField();
+		GreenGoalMin.setText("-1");
+		GreenGoalMin.setColumns(2);
+		
+		GreenGoalMax = new JTextField();
+		GreenGoalMax.setText("3");
+		GreenGoalMax.setColumns(2);
+		
+		JLabel GreenMinLabel = new JLabel("Min:");
+		GreenGoal.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JCheckBox GreenGoalRandomized = new JCheckBox("Randomize Green Goals?");
+		GreenGoalRandomized.setAlignmentX(Component.CENTER_ALIGNMENT);
+		GreenGoal.add(GreenGoalRandomized);
+		GreenGoal.add(GreenMinLabel);
+		GreenGoal.add(GreenGoalMin);
+		
+		JLabel GreenMaxLabel = new JLabel("Max:");
+		GreenGoal.add(GreenMaxLabel);
+		GreenGoal.add(GreenGoalMax);
+		
+		JPanel RedGoal = new JPanel();
+		GoalPanel.add(RedGoal);
+		
+		JCheckBox RedGoalRandomized = new JCheckBox("Randomize Red Goals?");
+		RedGoalRandomized.setAlignmentX(0.5f);
+		RedGoal.add(RedGoalRandomized);
+		
+		JLabel RedGoalMinLabel = new JLabel("Min:");
+		RedGoal.add(RedGoalMinLabel);
+		
+		RedGoalMin = new JTextField();
+		RedGoalMin.setText("-2");
+		RedGoalMin.setColumns(2);
+		RedGoal.add(RedGoalMin);
+		
+		JLabel RedGoalMaxLabel = new JLabel("Max:");
+		RedGoal.add(RedGoalMaxLabel);
+		
+		RedGoalMax = new JTextField();
+		RedGoalMax.setText("7");
+		RedGoalMax.setColumns(2);
+		RedGoal.add(RedGoalMax);
+		
+		Component verticalStrut = Box.createVerticalStrut(150);
+		GoalPanel.add(verticalStrut);
+		
+		JPanel SeedPanel = new JPanel();
+		GoalPanel.add(SeedPanel);
+		
+		JLabel SeedSystem = new JLabel("Seed:");
+		SeedPanel.add(SeedSystem);
+		
+		textField = new JTextField();
+		textField.setToolTipText("Use this to seed your randomization!");
+		SeedPanel.add(textField);
+		textField.setColumns(10);
 		
 		
 	}

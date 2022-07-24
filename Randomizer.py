@@ -8,7 +8,6 @@ from functools import reduce
 
 root = Tk()
 root.title("Super Monkey Ball Banana Mania Randomizer!")
-
 def Run():
     Success = Label(root, text="Penis")
 
@@ -184,8 +183,6 @@ GreenGoalList = [1002, 1043, 1082, 1086, 1015, 1021, 1028, 1035, 2204, 2214, 226
 RedGoalList = [1042, 1082, 1028, 2266, 2275, 2289, 2301, 2316, 2228, 2236, 2247, 2266, 2275, 2289, 2301, 2332]
 RandomizerList = []
 
-print('RandomizerList:',RandomizerList)
-
 def Randomize():
     RandomizerList = []
     if W1.get() == 1:
@@ -231,10 +228,8 @@ def Randomize():
     if OGStageBool.get() == 1:
         RandomizerList.extend(OGStageList)
     if Seed.get() == '' :
-        print("The seed has been randomized.")
         random.shuffle(RandomizerList)
     else :
-        print("Seed is currently:",Seed.get())
         TheSeed = int(Seed.get())
         random.seed(TheSeed)
         random.shuffle(RandomizerList)
@@ -258,18 +253,18 @@ def Randomize():
             if CountBool.get() == 1:
                 if i == int(LevelCount.get())- 10 :
                     file.write(",{\"is_check_point\": false,\"is_half_time\": true, \"stage_id\": ")
-                    print("We've hit the extras!")
+                else:
+                    file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
             if CountBool.get() == 0:
                 if i == len(RandomizerList) - 10 :
                     file.write(",{\"is_check_point\": false,\"is_half_time\": true, \"stage_id\": ")
-                    print("We've hit the extras!")
-            else:
-                file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
+                else:
+                    file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
+        
         file.write(str(RandomizerList[i]))
         file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":1}")
         if RandomizerList[i] in GreenGoalList:
             file.write(",{\"goal_kind\":\"Green\",\"next_step\":")
-            print("Green Goal Detected!")
             if GreenBool.get() == 0 :
                 if str(RandomizerList[i]) == 1015:
                     file.write("4}")
@@ -289,7 +284,6 @@ def Randomize():
                 random.seed(TheSeed)
                 
         if RandomizerList[i] in RedGoalList:
-            print("Red Goal Detected!")
             file.write(",{\"goal_kind\": \"Red\", \"next_step\":")
             if RedBool.get() == 0:
                 if RandomizerList[i] == 1028:
@@ -305,20 +299,15 @@ def Randomize():
             if Seed.get() != '':
                 TheSeed = TheSeed - 1
                 random.seed(TheSeed)
-        print(i)
-        print(str(RandomizerList[i]))
         i = i + 1
         file.write("]}")
     file.write("]}}}")    
     file.close()
-    print('Randomizer List:',RandomizerList)
     
 RandomizeButton = Button(root, text="Randomize!", command=Randomize)
 RandomizeButton.grid(row = 15, column = 3)
 
 root.mainloop()
-
-print("Shutting down...")
 
 #           {
 #            "is_check_point": true,

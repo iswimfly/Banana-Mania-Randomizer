@@ -10,6 +10,8 @@ A list of current features includes:
 - A custom level count! Don't feel like playing all of the levels, but want to pull from every single collection? Set a limit to how many levels your course will have!
 - A Seeding system, allowing for synchronization of custom difficulties for racing others! 
 
+The `.json` file writes to the same location as the executable, and the course in-game is always **SMB2 Marathon**.
+
 Feel free to add suggestions through Issues, report problems, or contribute directly with Pull Requests!
 
 You can find me in the [Banana Mania Modding Discord](https://discord.gg/dbNTKSU2Rt)!

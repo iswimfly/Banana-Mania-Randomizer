@@ -277,8 +277,13 @@ def Randomize():
                 if GreenMin.get() == '' or GreenMax.get() == '':
                     messagebox.showinfo(title='Error!',message='One of the Custom Green Goal Settings is missing! Please fill both in and try again, or uncheck the box.')
                     return
-                file.write(str(random.randint(int(GreenMin.get()),int(GreenMax.get()))))
-                file.write("}")
+                GreenGoal = random.randint(int(GreenMin.get()),int(GreenMax.get()))
+                if i - GreenGoal < 0:
+                    file.write(str(random.randint(0,int(GreenMax.get()))))
+                    file.write("}")
+                else:
+                    file.write(str(GreenGoal))
+                    file.write("}")
             if Seed.get() != '':
                 TheSeed = TheSeed - 1
                 random.seed(TheSeed)
@@ -294,8 +299,13 @@ def Randomize():
                 if RedMin.get() == '' or RedMax.get() == '':
                     messagebox.showinfo(title='Error!',message='One of the Custom Red Goal Settings is missing! Please fill both in and try again, or uncheck the box.')
                     return
-                file.write(str(random.randint(int(RedMin.get()),int(RedMax.get()))))
-                file.write("}")
+                RedGoal = random.randint(int(RedMin.get()),int(RedMax.get()))
+                if i - RedGoal < 0:
+                    file.write(str(random.randint(0,int(RedMax.get()))))
+                    file.write("}")
+                else:
+                    file.write(str(RedGoal))
+                    file.write("}")
             if Seed.get() != '':
                 TheSeed = TheSeed - 1
                 random.seed(TheSeed)

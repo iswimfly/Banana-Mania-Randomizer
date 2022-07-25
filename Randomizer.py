@@ -229,12 +229,13 @@ def Randomize():
         RandomizerList.extend(ReverseList)
     if OGStageBool.get() == 1:
         RandomizerList.extend(OGStageList)
+    OriginalRandomizerList = RandomizerList
     if CountBool.get() == 1:
         if LevelCount.get() == '':
             messagebox.showinfo(title='Error!',message='There is no custom level count set! Please add one and try again.')
             return
         while len(RandomizerList) < int(LevelCount.get()):
-            RandomzierList = RandomizerList.extend(RandomizerList)
+            RandomzierList = RandomizerList.extend(OriginalRandomizerList)
         else:    
             RandomizerList = RandomizerList[:int(LevelCount.get())]
     if len(RandomizerList) == 0:

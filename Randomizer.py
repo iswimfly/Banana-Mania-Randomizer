@@ -357,7 +357,7 @@ def Randomize():
                     file.write(str(RedGoal))
                     file.write("}")
             if Seed.get() != '':
-                TheSeed = TheSeed - 1
+                TheSeed = random.randint(0,99999)
                 random.seed(TheSeed)
         i = i + 1
         file.write("]}")

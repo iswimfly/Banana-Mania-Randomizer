@@ -95,6 +95,7 @@ OGStage.grid(row = 11, column = 1)
 GreenBool = IntVar()
 RedBool = IntVar()
 CountBool = IntVar()
+DuplicateBool = IntVar()
 
 def GreenBoolCheck():
     if GreenBool.get() == 0:
@@ -121,6 +122,7 @@ def LevelCountCheck():
 RandomizeGreen = Checkbutton(root, variable = GreenBool, text="Randomize Green Goals?", onvalue=1, offvalue=0, command=GreenBoolCheck)
 RandomizeRed = Checkbutton(root, variable = RedBool, text="Randomize Red Goals?", onvalue=1, offvalue=0, command = RedBoolCheck)
 CustomLevelCount = Checkbutton(root, variable = CountBool, text="Custom Level Count?", onvalue=1, offvalue=0, command = LevelCountCheck)
+Duplicates = Checkbutton(root, variable = DuplicateBool, text="Allow Duplicate Stages?", onvalue=1, offvalue=0)
 
 # Randomization Labels
 GreenMinLabel = Label(root, text="Green Goal Min:")
@@ -150,7 +152,7 @@ RedMax.grid(row = 6, column = 5, sticky="w")
 
 CustomLevelCount.grid(row = 7, column = 3, sticky="w")
 LevelCount.grid(row = 7, column = 4, sticky="w")
-
+Duplicates.grid(row = 8, column = 3)
 #Seed Setup
 SeedLabel = Label(root, text="Seed:")
 Seed = Entry(root, width=10)
@@ -158,15 +160,15 @@ Seed = Entry(root, width=10)
 SeedLabel.grid (row = 10, column = 2, columnspan=2)
 Seed.grid (row = 10, column = 2, columnspan = 3)
 
-World1List = [2201, 2202, 2203, 2204, 2001, 2002, 2003, 2004, 2005, 2006 ]
-World2List = [ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 ]
-World3List = [ 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239, 2017 ]
-World4List = [ 2018, 2019, 2020, 2021, 2022, 5023, 2024, 2025, 2026, 5027 ]
-World5List = [ 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037 ]
-World6List = [ 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, 2046, 2047 ]
-World7List = [ 2281, 2282, 2283, 2284, 2285, 2286, 2287, 2288, 5289, 2048 ]
-World8List = [ 2049, 5050, 2051, 2052, 2053, 2054, 2055, 2056, 2057, 2058 ]
-World9List = [ 2059, 2060, 2061, 2062, 2063, 2064, 2065, 2066, 2067, 5068 ]
+World1List = [2201, 2202, 2203, 2204, 2001, 2002, 2003, 2004, 2005, 2006]
+World2List = [ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
+World3List = [ 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239, 2017]
+World4List = [ 2018, 2019, 2020, 2021, 2022, 5023, 2024, 2025, 2026, 5027]
+World5List = [ 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037]
+World6List = [ 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, 2046, 2047]
+World7List = [ 2281, 2282, 2283, 2284, 2285, 2286, 2287, 2288, 5289, 2048]
+World8List = [ 2049, 5050, 2051, 2052, 2053, 2054, 2055, 2056, 2057, 2058]
+World9List = [ 2059, 2060, 2061, 2062, 2063, 2064, 2065, 2066, 2067, 5068]
 World10List = [ 2341, 2342, 2343, 2344, 2345, 2346, 2347, 2348, 2349, 2350]
 SMB1CasualList = [ 1001, 1002, 1003, 1004, 1091, 1005, 1006, 1007, 1008, 1009, 1101, 1102, 1103 ]
 SMB1NormalList = [ 1011, 1012, 1013, 1014, 1091, 1015, 1016, 1017, 1018, 1092, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1093, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039, 4040, 1101, 1104, 1105, 1103, 4106 ]
@@ -177,7 +179,7 @@ SMB2NormalList = [2221, 2222, 2223, 2224, 2225, 2226, 2227, 2228, 2229, 2230, 22
 SMB2ExpertList = [2261, 2262, 2263, 2264, 2265, 2266, 2267, 2268, 2269, 2270, 2271, 2272, 2273, 2274, 2275, 2276, 2277, 2278, 2279, 2280, 2281, 2282, 2283, 2284, 2285, 2286, 2287, 2288, 5289, 2290, 2291, 5292, 2293, 2294, 2295, 2296, 2297, 2298, 2299, 2300, 2301, 2302, 2303, 2304, 2305, 2306, 2307, 2308, 2309, 5310, 2311, 2312, 2313, 2314, 2315, 2316, 2317, 2318, 2319, 2320]
 SMB2MasterList = [2321, 2322, 5323, 2324, 5325, 2326, 5327, 2328, 2329, 5330, 2331, 2332, 2333, 2334, 2335, 2336, 5337, 2338, 2339, 2340]
 DXList = [3932, 3938, 3966, 3946, 3964, 3953, 3965, 3948, 3963, 3960, 3975, 3931, 3957, 3935, 3952, 3945, 3937, 3941, 6974, 3970, 3962, 3933, 3959, 3976, 3954, 3947, 3955, 3967, 3972, 3968, 3949, 3956, 3944, 3961, 3950, 3973, 3943, 3940, 3934, 3951, 3958, 3939, 3971, 3942, 3969, 3936]
-ReverseList = [7042, 9954, 8316, 7086, 8257, 7083, 7088, 8038, 7082, 7106 ]
+ReverseList = [7042, 9954, 8316, 7086, 8257, 7083, 7088, 8039, 7082, 7106]
 OGStageList = [3974, 1040, 2023, 2027, 1106, 3934, 1046, 1048, 1061, 2289, 1072, 2050, 2068, 2323, 2325, 2327, 2330, 1121, 1123, 1125, 1128, 1129, 2337]
 GreenGoalList = [1002, 1043, 1082, 1086, 1015, 1021, 1028, 1035, 2204, 2214, 2262, 2266, 2272, 2275, 2278, 2289, 2294, 2296, 2297, 2301, 2304, 2312, 2316, 2236, 2247, 2248, 2324, 2332, 2334, 2337, 2338, 2322, 2228, 2241, 2246]
 RedGoalList = [1042, 1082, 1028, 2266, 2275, 2289, 2301, 2316, 2228, 2236, 2247, 2266, 2275, 2289, 2301, 2332]
@@ -237,7 +239,10 @@ def Randomize():
         if LevelCount.get() == '':
             messagebox.showinfo(title='Error!',message='There is no custom level count set! Please add one and try again.')
             return
-        RandomizerList = RandomizerList[:int(LevelCount.get())]
+        if len(RandomizerList) < int(LevelCount.get()):
+            RandomzierList = RandomizerList.extend(RandomizerList)
+        else:    
+            RandomizerList = RandomizerList[:int(LevelCount.get())]
     if len(RandomizerList) == 0:
             messagebox.showinfo(title='Error!',message='You have not selected any levels! Please select at least one and try again.')
             return
@@ -256,12 +261,16 @@ def Randomize():
                 else:
                     file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
             if CountBool.get() == 0:
-                if i == len(RandomizerList) - 10 :
+                if i == int(len(RandomizerList)) - 10 :
                     file.write(",{\"is_check_point\": false,\"is_half_time\": true, \"stage_id\": ")
                 else:
                     file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
-        
-        file.write(str(RandomizerList[i]))
+        if DuplicateBool.get() == 1:
+            print(random.randint(0,len(RandomizerList)))
+            Stage = random.randint(0, len(RandomizerList))
+            file.write(str(RandomizerList[Stage]))     
+        else:
+            file.write(str(RandomizerList[i]))
         file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":1}")
         if RandomizerList[i] in GreenGoalList:
             file.write(",{\"goal_kind\":\"Green\",\"next_step\":")
@@ -313,34 +322,9 @@ def Randomize():
         file.write("]}")
     file.write("]}}}")    
     file.close()
+    messagebox.showinfo(title='Success!',message='The Randomization is complete! Randomized.json should be next to your executable file.')
     
 RandomizeButton = Button(root, text="Randomize!", command=Randomize)
 RandomizeButton.grid(row = 15, column = 3)
 
 root.mainloop()
-
-#           {
-#            "is_check_point": true,
-#            "is_half_time": false,
-#            "stage_id": 1001,
-#            "goals": [
-#              {
-#                "goal_kind": "Blue",
-#                "next_step": 1
-#              }
-#            ]
-#          },
-#
-#              ,{
-#                "goal_kind": "Green",
-#                "next_step": 2
-#              }
-#              
-#              ,{
-#                "goal_kind": "Red",
-#                "next_step": 3
-#              }
-#
-#
-#
-#

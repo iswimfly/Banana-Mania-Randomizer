@@ -96,6 +96,7 @@ GreenBool = IntVar()
 RedBool = IntVar()
 CountBool = IntVar()
 DuplicateBool = IntVar()
+BonusBool = IntVar()
 
 def GreenBoolCheck():
     if GreenBool.get() == 0:
@@ -119,10 +120,17 @@ def LevelCountCheck():
     else:
         LevelCount.config(state=NORMAL)
 
+# Setup Output Selection Dropdown
+CourseNames = ["SMB1 Casual", "SMB1 Normal", "SMB1 Expert", "SMB1 Master", "SMB1 Marathon", "SMB2 Casual", "SMB2 Normal", "SMB2 Expert", "SMB2 Master", "SMB2 Marathon", "DX Mode", "Reverse Mode", "Original Stage"]
+CourseList = StringVar()
+CourseList.set(CourseNames[9])
+
 RandomizeGreen = Checkbutton(root, variable = GreenBool, text="Randomize Green Goals?", onvalue=1, offvalue=0, command=GreenBoolCheck)
 RandomizeRed = Checkbutton(root, variable = RedBool, text="Randomize Red Goals?", onvalue=1, offvalue=0, command = RedBoolCheck)
 CustomLevelCount = Checkbutton(root, variable = CountBool, text="Custom Level Count?", onvalue=1, offvalue=0, command = LevelCountCheck)
 Duplicates = Checkbutton(root, variable = DuplicateBool, text="Allow Duplicate Stages?", onvalue=1, offvalue=0)
+RemoveBonus = Checkbutton(root, variable = BonusBool, text="Remove Bonus Stages?", onvalue=1, offvalue=0)
+OutputLocation = OptionMenu(root, CourseList, *CourseNames)
 
 # Randomization Labels
 GreenMinLabel = Label(root, text="Green Goal Min:")
@@ -130,29 +138,34 @@ GreenMaxLabel = Label(root, text="Green Goal Max:")
 RedMinLabel = Label(root, text="Red Goal Min:")
 RedMaxLabel = Label(root, text="Red Goal Max:")
 CountLabel = Label(root, text="Custom Level Count:")
+OutputLabel = Label(root, text="In-game Difficulty:")
 
-# Goal Randomization Entry
+# Randomizer Settings
 GreenMin = Entry(root, width=4, state=DISABLED)
 GreenMax = Entry(root, width=4, state=DISABLED)
 RedMin = Entry(root, width=4, state=DISABLED)
 RedMax = Entry(root, width=4, state=DISABLED)
 LevelCount = Entry(root, width=4, state=DISABLED)
 
-RandomizeGreen.grid(row = 3, column = 2, columnspan=4)
-GreenMinLabel.grid(row = 4, column = 2, sticky="e")
-GreenMin.grid(row = 4, column = 3,sticky="w")
-GreenMaxLabel.grid(row = 4, column = 4,sticky="e")
-GreenMax.grid(row = 4, column = 5, sticky="w")
+RandomizeGreen.grid(row = 1, column = 2, columnspan=4)
+GreenMinLabel.grid(row = 2, column = 2, sticky="e")
+GreenMin.grid(row = 2, column = 3,sticky="w")
+GreenMaxLabel.grid(row = 2, column = 4,sticky="e")
+GreenMax.grid(row = 2, column = 5, sticky="w")
 
-RandomizeRed.grid(row = 5, column = 2, columnspan=4)
-RedMinLabel.grid(row = 6, column = 2, sticky="e")
-RedMin.grid(row = 6, column = 3, sticky="w")
-RedMaxLabel.grid(row = 6, column = 4, sticky="e")
-RedMax.grid(row = 6, column = 5, sticky="w")
+RandomizeRed.grid(row = 3, column = 2, columnspan=4)
+RedMinLabel.grid(row = 4, column = 2, sticky="e")
+RedMin.grid(row = 4, column = 3, sticky="w")
+RedMaxLabel.grid(row = 4, column = 4, sticky="e")
+RedMax.grid(row = 4, column = 5, sticky="w")
 
-CustomLevelCount.grid(row = 7, column = 3, sticky="w")
-LevelCount.grid(row = 7, column = 4, sticky="w")
-Duplicates.grid(row = 8, column = 3)
+CustomLevelCount.grid(row = 5, column = 3, sticky="w")
+LevelCount.grid(row = 5, column = 4, sticky="w")
+Duplicates.grid(row = 6, column = 3)
+RemoveBonus.grid(row = 7, column = 3)
+OutputLabel.grid(row = 8, column = 2, columnspan = 2)
+OutputLocation.grid(row = 8, column = 2, columnspan = 3, sticky="e")
+
 #Seed Setup
 SeedLabel = Label(root, text="Seed:")
 Seed = Entry(root, width=10)
@@ -183,6 +196,8 @@ ReverseList = [7042, 9954, 8316, 7086, 8257, 7083, 7088, 8039, 7082, 7106]
 OGStageList = [3974, 1040, 2023, 2027, 1106, 3934, 1046, 1048, 1061, 2289, 1072, 2050, 2068, 2323, 2325, 2327, 2330, 1121, 1123, 1125, 1128, 1129, 2337]
 GreenGoalList = [1002, 1043, 1082, 1086, 1015, 1021, 1028, 1035, 2204, 2214, 2262, 2266, 2272, 2275, 2278, 2289, 2294, 2296, 2297, 2301, 2304, 2312, 2316, 2236, 2247, 2248, 2324, 2332, 2334, 2337, 2338, 2322, 2228, 2241, 2246]
 RedGoalList = [1042, 1082, 1028, 2266, 2275, 2289, 2301, 2316, 2228, 2236, 2247, 2266, 2275, 2289, 2301, 2332]
+BonusStageList = [1091, 1092, 1093, 1094, 1095, 2205, 2225, 2230, 2240, 2265, 2270, 2280, 2290, 2300, 3942, 3943, 3960, 3969]
+TrueCourseNames = ["Smb1_Casual", "Smb1_Normal", "Smb1_Expert", "Smb1_Master", "Smb1_Marathon", "Smb2_Casual", "Smb2_Normal", "Smb2_Expert", "Smb2_Master", "Smb2_Marathon", "SmbDx", "SpecialReverse", "SpecialOriginal"]
 RandomizerList = []
 
 def Randomize():
@@ -208,27 +223,51 @@ def Randomize():
     if W10.get() == 1:
         RandomizerList.extend(World10List)
     if SMB1C.get() == 1:
-        RandomizerList.extend(SMB1CasualList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(SMB1CasualList)
+        else:
+            [RandomizerList.append(x) for x in SMB1CasualList if x not in BonusStageList]
     if SMB1N.get() == 1:
-        RandomizerList.extend(SMB1NormalList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(SMB1NormalList)
+        else:
+            [RandomizerList.append(x) for x in SMB1NormalList if x not in BonusStageList]
     if SMB1E.get() == 1:
-        RandomizerList.extend(SMB1ExpertList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(SMB1ExpertList)
+        else:
+            [RandomizerList.append(x) for x in SMB1ExpertList if x not in BonusStageList]
     if SMB1M.get() == 1:
         RandomizerList.extend(SMB1MasterList)
     if SMB2C.get() == 1:
-        RandomizerList.extend(SMB2CasualList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(SMB2CasualList)
+        else:
+            [RandomizerList.append(x) for x in SMB2CasualList if x not in BonusStageList]
     if SMB2N.get() == 1:
-        RandomizerList.extend(SMB2NormalList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(SMB2NormalList)
+        else:
+            [RandomizerList.append(x) for x in SMB2NormalList if x not in BonusStageList]
     if SMB2E.get() == 1:
-        RandomizerList.extend(SMB2ExpertList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(SMB2ExpertList)
+        else:
+            [RandomizerList.append(x) for x in SMB2ExpertList if x not in BonusStageList]
     if SMB2M.get() == 1:
         RandomizerList.extend(SMB2MasterList)
     if DX.get() == 1:
-        RandomizerList.extend(DXList)
+        if BonusBool.get() == 0:
+            RandomizerList.extend(DXList)
+        else:
+            [RandomizerList.append(x) for x in DXList if x not in BonusStageList]
     if Reverse.get() == 1:
         RandomizerList.extend(ReverseList)
     if OGStageBool.get() == 1:
         RandomizerList.extend(OGStageList)
+    DupeRemover = []
+    [DupeRemover.append(x) for x in RandomizerList if x not in DupeRemover]
+    RandomizerList  = DupeRemover
     OriginalRandomizerList = RandomizerList
     if Seed.get() == '' :
         random.shuffle(RandomizerList)
@@ -250,8 +289,8 @@ def Randomize():
 
 
     file = open("Randomized.json", "w")
-
-    file.write("{\"course_defs\": {\"Smb2_Marathon\": {\"next_course\": \"Invalid\",\"start_movie_id\": \"Invalid\",\"end_movie_id\": \"Invalid\",\"course_stages\": [")
+    OutputIndex = CourseNames.index(CourseList.get())
+    file.write("{\"course_defs\": {\"" + TrueCourseNames[OutputIndex] + "\" : {\"next_course\": \"Invalid\",\"start_movie_id\": \"Invalid\",\"end_movie_id\": \"Invalid\",\"course_stages\": [")
     i = 0
     for x in RandomizerList:
         if i == 0:

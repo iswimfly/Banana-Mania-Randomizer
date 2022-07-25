@@ -230,6 +230,12 @@ def Randomize():
     if OGStageBool.get() == 1:
         RandomizerList.extend(OGStageList)
     OriginalRandomizerList = RandomizerList
+    if Seed.get() == '' :
+        random.shuffle(RandomizerList)
+    else :
+        TheSeed = int(Seed.get())
+        random.seed(TheSeed)
+        random.shuffle(RandomizerList)
     if CountBool.get() == 1:
         if LevelCount.get() == '':
             messagebox.showinfo(title='Error!',message='There is no custom level count set! Please add one and try again.')
@@ -241,12 +247,7 @@ def Randomize():
     if len(RandomizerList) == 0:
             messagebox.showinfo(title='Error!',message='You have not selected any levels! Please select at least one and try again.')
             return
-    if Seed.get() == '' :
-        random.shuffle(RandomizerList)
-    else :
-        TheSeed = int(Seed.get())
-        random.seed(TheSeed)
-        random.shuffle(RandomizerList)
+
 
     file = open("Randomized.json", "w")
 

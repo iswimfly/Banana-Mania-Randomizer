@@ -272,7 +272,7 @@ def Randomize():
     if Seed.get() == '' :
         random.shuffle(RandomizerList)
     else :
-        TheSeed = int(Seed.get())
+        TheSeed = Seed.get()
         random.seed(TheSeed)
         random.shuffle(RandomizerList)
     if CountBool.get() == 1:
@@ -335,7 +335,7 @@ def Randomize():
                     file.write(str(GreenGoal))
                     file.write("}")
             if Seed.get() != '':
-                TheSeed = TheSeed - 1
+                TheSeed = random.randint(0,99999)
                 random.seed(TheSeed)
                 
         if RandomizerList[i] in RedGoalList:

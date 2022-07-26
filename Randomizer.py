@@ -63,6 +63,7 @@ SMB2M = IntVar()
 DX = IntVar()
 Reverse = IntVar()
 OGStageBool = IntVar()
+Unused = IntVar()
 
 SMB1Casual = Checkbutton(root, text="SMB1 Casual", variable=SMB1C, onvalue=1, offvalue=0)
 SMB1Normal = Checkbutton(root, text="SMB1 Normal", variable=SMB1N, onvalue=1, offvalue=0)
@@ -75,6 +76,7 @@ SMB2Master = Checkbutton(root, text="SMB2 Master", variable=SMB2M, onvalue=1, of
 DXMode = Checkbutton(root, text="DX Mode", variable=DX, onvalue=1, offvalue=0)
 ReverseMode = Checkbutton(root, text="Reverse Mode", variable=Reverse, onvalue=1, offvalue=0)
 OGStage = Checkbutton(root, text="OG Stage Mode", variable=OGStageBool, onvalue=1, offvalue=0)
+UnusedStages = Checkbutton(root, text="Unused Stages", variable=Unused, onvalue=1, offvalue=0)
 
 LevelLabel.grid(row = 0, column = 1)
 SMB1Casual.grid(row = 1, column = 1)
@@ -88,6 +90,7 @@ SMB2Master.grid(row = 8, column = 1)
 DXMode.grid(row = 9, column = 1)
 ReverseMode.grid(row = 10, column = 1)
 OGStage.grid(row = 11, column = 1)
+UnusedStages.grid(row = 12, column = 1)
 
 #Add in Misc Randomization Elements
 
@@ -166,12 +169,38 @@ RemoveBonus.grid(row = 7, column = 3)
 OutputLabel.grid(row = 8, column = 2, columnspan = 2)
 OutputLocation.grid(row = 8, column = 2, columnspan = 3, sticky="e")
 
+#Cursed Setup
+Cursed = IntVar()
+SuperCursed = IntVar()
+
+def CursedCommand() :
+    if Cursed.get() == 1:
+        SuperCursed = 0
+        SuperCursedBox.config(state=DISABLED)
+        messagebox.showinfo(title='Warning!',message='Cursed makes it so only one goal per stage will send you forward, and it is based off the Green and Red Max values. Make sure you\'re ready for this!')
+    if Cursed.get() == 0:
+        SuperCursedBox.config(state=NORMAL)
+
+def SuperCursedCommand() :
+    if SuperCursed.get() == 1:
+        Cursed = 0
+        CursedBox.config(state=DISABLED)
+        messagebox.showinfo(title='Warning!',message='Supercursed makes it so only one goal per stage will send you forward, while the rest can send you BACKWARDS (or nowhere)! It is based off the Green and Red Min/Max values (Mins must be 0 OR NEGATIVE). Make sure you\'re ready for this!')
+    if SuperCursed.get() == 0:
+        CursedBox.config(state=NORMAL)
+
+CursedBox = Checkbutton(root, variable=Cursed, onvalue = 1, offvalue=0, text="Cursed?", comman = CursedCommand, state=NORMAL)
+SuperCursedBox = Checkbutton(root, variable=SuperCursed, onvalue = 1, offvalue=0, text="Super Cursed?", command = SuperCursedCommand, state=NORMAL)
+
+CursedBox.grid(row = 9, column = 3)
+SuperCursedBox.grid(row = 10, column = 3)
+
 #Seed Setup
 SeedLabel = Label(root, text="Seed:")
 Seed = Entry(root, width=10)
 
-SeedLabel.grid (row = 10, column = 2, columnspan=2)
-Seed.grid (row = 10, column = 2, columnspan = 3)
+SeedLabel.grid (row = 11, column = 2, columnspan=2)
+Seed.grid (row = 11, column = 2, columnspan = 3)
 
 World1List = [2201, 2202, 2203, 2204, 2001, 2002, 2003, 2004, 2005, 2006]
 World2List = [ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
@@ -197,6 +226,7 @@ OGStageList = [3974, 1040, 2023, 2027, 1106, 3934, 1046, 1048, 1061, 2289, 1072,
 GreenGoalList = [1002, 1043, 1082, 1086, 1015, 1021, 1028, 1035, 2204, 2214, 2262, 2266, 2272, 2275, 2278, 2289, 2294, 2296, 2297, 2301, 2304, 2312, 2316, 2236, 2247, 2248, 2324, 2332, 2334, 2337, 2338, 2322, 2228, 2241, 2246]
 RedGoalList = [1042, 1082, 1028, 2266, 2275, 2289, 2301, 2316, 2228, 2236, 2247, 2266, 2275, 2289, 2301, 2332]
 BonusStageList = [1091, 1092, 1093, 1094, 1095, 2205, 2225, 2230, 2240, 2265, 2270, 2280, 2290, 2300, 3942, 3943, 3960, 3969]
+UnusedStagesList = [2246, 2250, 2292, 2310]
 TrueCourseNames = ["Smb1_Casual", "Smb1_Normal", "Smb1_Expert", "Smb1_Master", "Smb1_Marathon", "Smb2_Casual", "Smb2_Normal", "Smb2_Expert", "Smb2_Master", "Smb2_Marathon", "SmbDx", "SpecialReverse", "SpecialOriginal"]
 RandomizerList = []
 
@@ -222,6 +252,8 @@ def Randomize():
         RandomizerList.extend(World9List)
     if W10.get() == 1:
         RandomizerList.extend(World10List)
+    if Unused.get() == 1:
+        RandomizerList.extend(UnusedStagesList)
     if SMB1C.get() == 1:
         if BonusBool.get() == 0:
             RandomizerList.extend(SMB1CasualList)
@@ -269,6 +301,14 @@ def Randomize():
     [DupeRemover.append(x) for x in RandomizerList if x not in DupeRemover]
     RandomizerList  = DupeRemover
     OriginalRandomizerList = RandomizerList
+    if Seed.get() == 'Helix13_':
+        RandomizerList = [3934]
+        for x in OriginalRandomizerList:
+            RandomizerList.append(3934)
+    if Seed.get() == 'iswimfly':
+        RandomizerList = [5327]
+        for x in OriginalRandomizerList:
+            RandomizerList.append(5237)
     if Seed.get() == '' :
         random.shuffle(RandomizerList)
     else :
@@ -298,12 +338,12 @@ def Randomize():
         else:
             if CountBool.get() == 1:
                 if i == int(LevelCount.get())- 10 :
-                    file.write(",{\"is_check_point\": false,\"is_half_time\": true, \"stage_id\": ")
+                    file.write(",{\"is_check_point\": true,\"is_half_time\": false, \"stage_id\": ")
                 else:
                     file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
             if CountBool.get() == 0:
                 if i == int(len(RandomizerList)) - 10 :
-                    file.write(",{\"is_check_point\": false,\"is_half_time\": true, \"stage_id\": ")
+                    file.write(",{\"is_check_point\": true,\"is_half_time\": false, \"stage_id\": ")
                 else:
                     file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
         if DuplicateBool.get() == 1:
@@ -312,53 +352,118 @@ def Randomize():
             file.write(str(RandomizerList[Stage]))     
         else:
             file.write(str(RandomizerList[i]))
-        file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":1}")
-        if RandomizerList[i] in GreenGoalList:
-            file.write(",{\"goal_kind\":\"Green\",\"next_step\":")
-            if GreenBool.get() == 0 :
-                if str(RandomizerList[i]) == 1015:
-                    file.write("4}")
-                if str(RandomizerList[i]) == 1021 or 1035 or 1002:
-                    file.write("3}")
+
+        if Cursed.get() == 1:
+            if GreenMin.get() == '' or GreenMax.get() == '':
+                messagebox.showinfo(title='Error!',message='One of the Custom Green Goal Settings is missing! Please fill both in and try again.')
+                return
+            if RedMin.get() == '' or RedMax.get() == '':
+                messagebox.showinfo(title='Error!',message='One of the Custom Red Goal Settings is missing! Please fill both in and try again.')
+                return
+            if RandomizerList[i] in GreenGoalList:
+                if RandomizerList[i] in RedGoalList:
+                    GoalWarps = [0,0,random.randint(1,int(RedMax.get()))]
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",{\"goal_kind\":\"Green\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    file.write(",{\"goal_kind\": \"Red\", \"next_step\":" + str(GoalWarps[0]) + "}")
                 else:
-                    print(RandomizerList[i])
-                    file.write("2}")
-            else:
-                if GreenMin.get() == '' or GreenMax.get() == '':
-                    messagebox.showinfo(title='Error!',message='One of the Custom Green Goal Settings is missing! Please fill both in and try again, or uncheck the box.')
-                    return
-                GreenGoal = random.randint(int(GreenMin.get()),int(GreenMax.get()))
-                if i - GreenGoal < 0:
-                    file.write(str(random.randint(0,int(GreenMax.get()))))
-                    file.write("}")
-                else:
-                    file.write(str(GreenGoal))
-                    file.write("}")
+                    GoalWarps = [0,random.randint(1,int(GreenMax.get()))]
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    file.write(",{\"goal_kind\":\"Green\",\"next_step\":" + str(GoalWarps[0]) + "}")
+            if RandomizerList[i] in RedGoalList and RandomizerList[i] not in GreenGoalList:
+                    GoalWarps = [0,random.randint(1,int(RedMax.get()))]
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    file.write(",{\"goal_kind\": \"Red\", \"next_step\":" + str(GoalWarps[0]) + "}")
+            if RandomizerList[i] not in RedGoalList and RandomizerList[i] not in GreenGoalList:
+                file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":1}")   
             if Seed.get() != '':
                 TheSeed = random.randint(0,99999)
                 random.seed(TheSeed)
-                
-        if RandomizerList[i] in RedGoalList:
-            file.write(",{\"goal_kind\": \"Red\", \"next_step\":")
-            if RedBool.get() == 0:
-                if RandomizerList[i] == 1028:
-                    file.write("7}")
+              
+        if SuperCursed.get() == 1:
+            if GreenMin.get() == '' or GreenMax.get() == '':
+                messagebox.showinfo(title='Error!',message='One of the Custom Green Goal Settings is missing! Please fill both in and try again.')
+                return
+            if RedMin.get() == '' or RedMax.get() == '':
+                messagebox.showinfo(title='Error!',message='One of the Custom Red Goal Settings is missing! Please fill both in and try again.')
+                return
+            if RandomizerList[i] in GreenGoalList:
+                if RandomizerList[i] in RedGoalList:
+                    GoalWarps = [random.randint(int(GreenMin.get()),0),random.randint(int(RedMin.get()),0),random.randint(1,int(RedMax.get()))]
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",{\"goal_kind\":\"Green\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    file.write(",{\"goal_kind\": \"Red\", \"next_step\":" + str(GoalWarps[0]) + "}")
                 else:
-                    file.write("3}")
-            else:
-                if RedMin.get() == '' or RedMax.get() == '':
-                    messagebox.showinfo(title='Error!',message='One of the Custom Red Goal Settings is missing! Please fill both in and try again, or uncheck the box.')
-                    return
-                RedGoal = random.randint(int(RedMin.get()),int(RedMax.get()))
-                if i - RedGoal < 0:
-                    file.write(str(random.randint(0,int(RedMax.get()))))
-                    file.write("}")
-                else:
-                    file.write(str(RedGoal))
-                    file.write("}")
+                    GoalWarps = [random.randint(int(GreenMin.get()),0),random.randint(1,int(GreenMax.get()))]
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    file.write(",{\"goal_kind\":\"Green\",\"next_step\":" + str(GoalWarps[0]) + "}")
+            if RandomizerList[i] in RedGoalList and RandomizerList[i] not in GreenGoalList:
+                    GoalWarps = [random.randint(int(RedMin.get()),0),random.randint(1,int(RedMax.get()))]
+                    Goal = random.randint(0,len(GoalWarps)-1)
+                    file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":" + str(GoalWarps[Goal]) + "}")
+                    GoalWarps.pop(Goal)
+                    file.write(",{\"goal_kind\": \"Red\", \"next_step\":" + str(GoalWarps[0]) + "}")
+            if RandomizerList[i] not in RedGoalList and RandomizerList[i] not in GreenGoalList:
+                file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":1}")
             if Seed.get() != '':
-                TheSeed = random.randint(0,99999)
-                random.seed(TheSeed)
+                        TheSeed = random.randint(0,99999)
+                        random.seed(TheSeed)        
+        if Cursed.get() == 0 and SuperCursed.get() == 0:
+            file.write(",\"goals\": [{\"goal_kind\":\"Blue\",\"next_step\":1}")
+            if RandomizerList[i] in GreenGoalList:
+                file.write(",{\"goal_kind\":\"Green\",\"next_step\":")         
+                if GreenBool.get() == 0 :
+                    if str(RandomizerList[i]) == 1015:
+                            file.write("4}")
+                    if str(RandomizerList[i]) == 1021 or 1035 or 1002:
+                            file.write("3}")
+                    else:
+                            file.write("2}")
+                else:
+                    if GreenMin.get() == '' or GreenMax.get() == '':
+                        messagebox.showinfo(title='Error!',message='One of the Custom Green Goal Settings is missing! Please fill both in and try again, or uncheck the box.')
+                        return
+                    GreenGoal = random.randint(int(GreenMin.get()),int(GreenMax.get()))
+                    if i - GreenGoal < 0:
+                        file.write(str(random.randint(0,int(GreenMax.get()))) + "}")
+                    else:
+                        file.write(str(GreenGoal) + "}")
+                if Seed.get() != '':
+                    TheSeed = random.randint(0,99999)
+                    random.seed(TheSeed) 
+            if RandomizerList[i] in RedGoalList:
+                file.write(",{\"goal_kind\": \"Red\", \"next_step\":")
+                if RedBool.get() == 0:
+                    if RandomizerList[i] == 1028:
+                        file.write("7}")
+                    else:
+                        file.write("3}")
+                else:
+                    if RedMin.get() == '' or RedMax.get() == '':
+                        messagebox.showinfo(title='Error!',message='One of the Custom Red Goal Settings is missing! Please fill both in and try again, or uncheck the box.')
+                        return
+                    RedGoal = random.randint(int(RedMin.get()),int(RedMax.get()))
+                    if i - RedGoal < 0:
+                        file.write(str(random.randint(0,int(RedMax.get()))) + "}")
+                    else:
+                        file.write(str(RedGoal) + "}")
+                if Seed.get() != '':
+                    TheSeed = random.randint(0,99999)
+                    random.seed(TheSeed)
         i = i + 1
         file.write("]}")
     file.write("]}}}")    

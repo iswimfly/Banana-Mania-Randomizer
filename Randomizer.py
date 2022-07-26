@@ -100,6 +100,7 @@ RedBool = IntVar()
 CountBool = IntVar()
 DuplicateBool = IntVar()
 BonusBool = IntVar()
+ExtrasBool = IntVar()
 
 def GreenBoolCheck():
     if GreenBool.get() == 0:
@@ -123,6 +124,12 @@ def LevelCountCheck():
     else:
         LevelCount.config(state=NORMAL)
 
+def ExtrasCommand():
+    if ExtrasBool.get() == 0:
+        ExtrasInput.config(state=DISABLED)
+    else:
+        ExtrasInput.config(state=NORMAL)
+
 # Setup Output Selection Dropdown
 CourseNames = ["SMB1 Casual", "SMB1 Normal", "SMB1 Expert", "SMB1 Master", "SMB1 Marathon", "SMB2 Casual", "SMB2 Normal", "SMB2 Expert", "SMB2 Master", "SMB2 Marathon", "DX Mode", "Reverse Mode", "Original Stage"]
 CourseList = StringVar()
@@ -133,6 +140,8 @@ RandomizeRed = Checkbutton(root, variable = RedBool, text="Randomize Red Goals?"
 CustomLevelCount = Checkbutton(root, variable = CountBool, text="Custom Level Count?", onvalue=1, offvalue=0, command = LevelCountCheck)
 Duplicates = Checkbutton(root, variable = DuplicateBool, text="Allow Duplicate Stages?", onvalue=1, offvalue=0)
 RemoveBonus = Checkbutton(root, variable = BonusBool, text="Remove Bonus Stages?", onvalue=1, offvalue=0)
+ExtrasCheckbox = Checkbutton(root, variable=ExtrasBool, onvalue=1, offvalue =0, text="Limit Extras to End?", command = ExtrasCommand)
+ExtrasInput = Entry(root, width=4, state=DISABLED)
 OutputLocation = OptionMenu(root, CourseList, *CourseNames)
 
 # Randomization Labels
@@ -142,6 +151,7 @@ RedMinLabel = Label(root, text="Red Goal Min:")
 RedMaxLabel = Label(root, text="Red Goal Max:")
 CountLabel = Label(root, text="Custom Level Count:")
 OutputLabel = Label(root, text="In-game Difficulty:")
+ExtrasLabel = Label(root, text="Extras Start:")
 
 # Randomizer Settings
 GreenMin = Entry(root, width=4, state=DISABLED)
@@ -166,8 +176,12 @@ CustomLevelCount.grid(row = 5, column = 3, sticky="w")
 LevelCount.grid(row = 5, column = 4, sticky="w")
 Duplicates.grid(row = 6, column = 3)
 RemoveBonus.grid(row = 7, column = 3)
-OutputLabel.grid(row = 8, column = 2, columnspan = 2)
-OutputLocation.grid(row = 8, column = 2, columnspan = 3, sticky="e")
+ExtrasCheckbox.grid(row = 8 , column = 2, columnspan=2)
+ExtrasLabel.grid(row = 8, column = 4, sticky="w")
+ExtrasInput.grid(row = 8, column = 4, sticky="e")
+
+OutputLabel.grid(row = 9, column = 2, columnspan = 2)
+OutputLocation.grid(row = 9, column = 2, columnspan = 3, sticky="e")
 
 #Cursed Setup
 Cursed = IntVar()
@@ -192,15 +206,15 @@ def SuperCursedCommand() :
 CursedBox = Checkbutton(root, variable=Cursed, onvalue = 1, offvalue=0, text="Cursed?", comman = CursedCommand, state=NORMAL)
 SuperCursedBox = Checkbutton(root, variable=SuperCursed, onvalue = 1, offvalue=0, text="Super Cursed?", command = SuperCursedCommand, state=NORMAL)
 
-CursedBox.grid(row = 9, column = 3)
-SuperCursedBox.grid(row = 10, column = 3)
+CursedBox.grid(row = 10, column = 3)
+SuperCursedBox.grid(row = 11, column = 3)
 
 #Seed Setup
 SeedLabel = Label(root, text="Seed:")
 Seed = Entry(root, width=10)
 
-SeedLabel.grid (row = 11, column = 2, columnspan=2)
-Seed.grid (row = 11, column = 2, columnspan = 3)
+SeedLabel.grid (row = 12, column = 2, columnspan=2)
+Seed.grid (row = 12, column = 2, columnspan = 3)
 
 World1List = [2201, 2202, 2203, 2204, 2001, 2002, 2003, 2004, 2005, 2006]
 World2List = [ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
@@ -226,6 +240,7 @@ OGStageList = [3974, 1040, 2023, 2027, 1106, 3934, 1046, 1048, 1061, 2289, 1072,
 GreenGoalList = [1002, 1043, 1082, 1086, 1015, 1021, 1028, 1035, 2204, 2214, 2262, 2266, 2272, 2275, 2278, 2289, 2294, 2296, 2297, 2301, 2304, 2312, 2316, 2236, 2247, 2248, 2324, 2332, 2334, 2337, 2338, 2322, 2228, 2241, 2246]
 RedGoalList = [1042, 1082, 1028, 2266, 2275, 2289, 2301, 2316, 2228, 2236, 2247, 2266, 2275, 2289, 2301, 2332]
 BonusStageList = [1091, 1092, 1093, 1094, 1095, 2205, 2225, 2230, 2240, 2265, 2270, 2280, 2290, 2300, 3942, 3943, 3960, 3969]
+ExtrasStageList = []
 UnusedStagesList = [2246, 2250, 2292, 2310]
 TrueCourseNames = ["Smb1_Casual", "Smb1_Normal", "Smb1_Expert", "Smb1_Master", "Smb1_Marathon", "Smb2_Casual", "Smb2_Normal", "Smb2_Expert", "Smb2_Master", "Smb2_Marathon", "SmbDx", "SpecialReverse", "SpecialOriginal"]
 RandomizerList = []
@@ -300,6 +315,9 @@ def Randomize():
     DupeRemover = []
     [DupeRemover.append(x) for x in RandomizerList if x not in DupeRemover]
     RandomizerList  = DupeRemover
+    if ExtrasBool.get() == 1:
+            RandomizerExtras = []
+            [RandomizerExtras.append(x) for x in RandomizerList if x in ExtrasStageList]
     OriginalRandomizerList = RandomizerList
     if Seed.get() == 'Helix13_':
         RandomizerList = [3934]

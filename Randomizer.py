@@ -247,6 +247,9 @@ RandomizerList = []
 
 def Randomize():
     RandomizerList = []
+    RandomizerExtras = []
+    OriginalRandomizerList = []
+    OriginalRandomizerExtras = []
     if W1.get() == 1:
         RandomizerList.extend(World1List)
     if W2.get() == 1:
@@ -348,24 +351,36 @@ def Randomize():
                 count = 0
             if len(RandomizerExtras) > int(ExtrasInput.get()):
                 RandomizerExtras = RandomizerExtras[:int(ExtrasInput.get())]
-        print(len(RandomizerList), len(RandomizerExtras))
+        RandoSize = len(RandomizerList)
+        ExtrasSize = len(RandomizerExtras)
     if len(RandomizerList) == 0:
             messagebox.showinfo(title='Error!',message='You have not selected any levels! Please select at least one and try again.')
             return
+    #Seed Easter Eggs lol
     if Seed.get() == 'Helix13_':
         RandomizerList = [3934]
-        for x in OriginalRandomizerList:
+        while len(RandomizerList) < RandoSize:
             RandomizerList.append(3934)
-        RandomizerExtras = [3934]
-        for x in OriginalRandomizerExtras:
-            RandomizerList.append(3934)
+        if RandomizerExtras != []:
+            RandomizerExtras = [3934]
+            while len(RandomizerExtras) < ExtrasSize:
+                RandomizerExtras.append(3934)
     if Seed.get() == 'iswimfly':
-        RandomizerList = [5327]
-        for x in OriginalRandomizerList:
+        RandomizerList = [5237]
+        while len(RandomizerList) < RandoSize:
             RandomizerList.append(5237)
-        RandomizerExtras = [5327]
-        for x in OriginalRandomizerExtras:
-            RandomizerList.append(5237)    
+        if RandomizerExtras != []:
+            RandomizerExtras = [5237]
+            while len(RandomizerExtras) < ExtrasSize:
+                RandomizerExtras.append(5237)
+    if Seed.get() == 'Stairs':
+        RandomizerList = [2347]
+        for x in OriginalRandomizerList:
+            RandomizerList.append(2347)
+        RandomizerExtras = [1087]
+        if OriginalRandomizerExtras != []:
+            for x in OriginalRandomizerExtras:
+                RandomizerList.append(1087)   
     if Seed.get() == '' :
         random.shuffle(RandomizerList)
         random.shuffle(RandomizerExtras)
@@ -389,8 +404,9 @@ def Randomize():
             else:
                 file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
         if DuplicateBool.get() == 1:
-            Stage = random.randint(0, len(RandomizerList))
-            file.write(str(RandomizerList[Stage]))     
+            Stage = random.randint(0, (len(RandomizerList) - 1))
+            file.write(str(RandomizerList[Stage]))
+            i = Stage     
         else:
             file.write(str(RandomizerList[i]))
 
@@ -514,8 +530,9 @@ def Randomize():
             else:
                 file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
             if DuplicateBool.get() == 1:
-                Stage = random.randint(0, len(RandomizerExtras))
-                file.write(str(RandomizerExtras[Stage]))     
+                Stage = random.randint(0, (len(RandomizerExtras) - 1))
+                file.write(str(RandomizerExtras[Stage]))
+                i = Stage   
             else:
                 file.write(str(RandomizerExtras[i]))
             if Cursed.get() == 1:

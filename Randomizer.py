@@ -399,8 +399,11 @@ def Randomize():
         if i == 0:
             file.write("{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
         else:
-            if i == len(RandomizerList) - 1:
-                file.write(",{\"is_check_point\": true,\"is_half_time\": true, \"stage_id\": ")
+            if len(RandomizerExtras) != 0:
+                if i == len(RandomizerList) - 1:
+                    file.write(",{\"is_check_point\": true,\"is_half_time\": true, \"stage_id\": ")
+                else:
+                    file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
             else:
                 file.write(",{\"is_check_point\": false,\"is_half_time\": false, \"stage_id\": ")
         if DuplicateBool.get() == 1:

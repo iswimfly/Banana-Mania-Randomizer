@@ -24,7 +24,7 @@ Also please be nice to me, I learned Python to make this I know it's messy it's 
 
 You can find me in the [Banana Mania Modding Discord](https://discord.gg/dbNTKSU2Rt)!
 
-# HOW TO USE
+# How to Use:
 
 1. Install SMBBM Course Modifier, linked above.
 2. Download the latest `.exe` from the [Releases](https://github.com/iswimfly/Banana-Mania-Randomizer/releases) tab.

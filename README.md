@@ -23,3 +23,11 @@ Feel free to add suggestions through Issues, report problems, or contribute dire
 Also please be nice to me, I learned Python to make this I know it's messy it's my first attempt at actual coding
 
 You can find me in the [Banana Mania Modding Discord](https://discord.gg/dbNTKSU2Rt)!
+
+# HOW TO USE
+
+1. Install SMBBM Course Modifier, linked above.
+2. Download the latest `.exe` from the [Releases](https://github.com/iswimfly/Banana-Mania-Randomizer/releases) tab.
+3. Run the Executable file, and select the options you want.
+4. Press the `Randomize!` button, and make sure you receive a message box that tells you it was successful.
+5. In the same location you placed the `.exe`, take the `Randomized.json` file that was generated and place it in the appropriate location for [SMBBM Course Modifier](https://github.com/bobjrsenior/SMBBMCourseModifier#using-the-plugin).

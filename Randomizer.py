@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 from functools import reduce
+from tkinter import filedialog
 
 root = Tk()
 root.title("Super Monkey Ball Banana Mania Randomizer!")
@@ -244,6 +245,8 @@ ExtrasStageList = [1101, 1102, 1103, 1104, 1105, 4106, 1107, 1108, 1109, 1110, 1
 UnusedStagesList = [2246, 2250, 2292, 2310]
 TrueCourseNames = ["Smb1_Casual", "Smb1_Normal", "Smb1_Expert", "Smb1_Master", "Smb1_Marathon", "Smb2_Casual", "Smb2_Normal", "Smb2_Expert", "Smb2_Master", "Smb2_Marathon", "SmbDx", "SpecialReverse", "SpecialOriginal"]
 RandomizerList = []
+
+
 
 def Randomize():
     RandomizerList = []
@@ -653,8 +656,86 @@ def Randomize():
     file.write("]}}}")   
     file.close()
     messagebox.showinfo(title='Success!',message='The Randomization is complete! Randomized.json should be next to your executable file.')
-    
-RandomizeButton = Button(root, text="Randomize!", command=Randomize)
-RandomizeButton.grid(row = 15, column = 3)
 
+
+def ExportConfig():
+    filename = filedialog.asksaveasfilename(
+        defaultextension='.cfg', filetypes=[("Config File", '*.cfg')], 
+        title="Save as...")
+    if not filename.endswith('.cfg'):
+        filename += '.cfg'
+    file = open(filename , "w")
+    #World 1 Through 10
+    file.write(str(W1.get()) + ',' + str(W2.get()) + ',' + str(W3.get()) + ',' + str(W4.get()) + ',' + str(W5.get()) + ',' + str(W6.get()) + ',' + str(W7.get()) + ',' + str(W8.get()) + ',' + str(W9.get()) + ',' + str(W10.get()) + ',')
+    #SMB1CNEM, SMB2CNEM, DX, Reverse, OG, Unused
+    file.write(str(SMB1C.get()) + ',' + str(SMB1N.get()) + ',' + str(SMB1E.get()) + ',' + str(SMB1M.get()) + ',' + str(SMB2C.get()) + ',' + str(SMB2N.get()) + ',' + str(SMB2E.get()) + ',' + str(SMB2M.get()) + ',' + str(DX.get()) + ',' + str(Reverse.get()) + ',' + str(OGStageBool.get()) + ',' + str(Unused.get()) + ',')
+    #Misc Stuff
+    file.write(str(GreenBool.get()) + ',' + str(GreenMin.get()) + ',' + str(GreenMax.get()) + ',' + str(RedBool.get()) + ',' + str(RedMin.get()) + ',' + str(RedMax.get()) + ',' + str(CountBool.get()) + ',' + str(LevelCount.get()) + ',' + str(DuplicateBool.get()) + ',' + str(BonusBool.get()) + ',' + str(ExtrasBool.get()) + ',' + str(ExtrasInput.get()) + ',' + str(CourseNames.index(CourseList.get())) + ',' + str(Cursed.get()) + ',' + str(SuperCursed.get()) + ',' + str(Seed.get()))
+    file.close
+def ImportConfig():
+    configname = filedialog.askopenfilename(
+        defaultextension='.cfg', filetypes=[("Config File", '*.cfg')], 
+        title="Open a config..."
+    )
+    if not configname.endswith('.cfg'):
+        messagebox.showinfo(title='Error!', message='It looks like you didn\'t select a config file. Please try again!')
+    config = open(configname)
+    data = config.read()
+    datalist = data.split(',')
+    print(len(datalist))
+    if len(datalist) != 38:
+        messagebox.showinfo(title='Error!', message='It looks like you\'ve selected an invalid config file. Please try again!')
+    else:
+        W1.set(datalist[0])
+        W2.set(datalist[1])
+        W3.set(datalist[2])
+        W4.set(datalist[3])
+        W5.set(datalist[4])
+        W6.set(datalist[5])
+        W7.set(datalist[6])
+        W8.set(datalist[7])
+        W9.set(datalist[8])
+        W10.set(datalist[9])
+        SMB1C.set(datalist[10])
+        SMB1N.set(datalist[11])
+        SMB1E.set(datalist[12])
+        SMB1M.set(datalist[13])
+        SMB2C.set(datalist[14])
+        SMB2N.set(datalist[15])
+        SMB2E.set(datalist[16])
+        SMB2M.set(datalist[17])
+        DX.set(datalist[18])
+        Reverse.set(datalist[19])
+        OGStageBool.set(datalist[20])
+        Unused.set(datalist[21])
+        GreenBool.set(datalist[22])
+        GreenBoolCheck()
+        GreenMin.insert(0, datalist[23])
+        GreenMax.insert(0, datalist[24])
+        RedBool.set(datalist[25])
+        RedBoolCheck()
+        RedMin.insert(0, datalist[26])
+        RedMax.insert(0, datalist[27])
+        CountBool.set(datalist[28])
+        LevelCountCheck()
+        LevelCount.insert(0, datalist[29])
+        DuplicateBool.set(datalist[30])
+        BonusBool.set(datalist[31])
+        ExtrasBool.set(datalist[32])
+        ExtrasCommand()
+        ExtrasInput.insert(0, datalist[33])
+        CourseList.set(CourseNames[int(datalist[34])])
+        Cursed.set(datalist[35])
+        CursedCommand()
+        SuperCursed.set(datalist[36])
+        SuperCursedCommand()
+        Seed.insert(0, datalist[37])
+
+ExportButton = Button(root, text="Export Config", command = ExportConfig)
+ImportButton = Button(root, text="Import Config", command = ImportConfig)
+RandomizeButton = Button(root, text="Randomize!", command = Randomize)
+
+RandomizeButton.grid(row = 15, column = 3)
+ExportButton.grid(row=15, column=0)
+ImportButton.grid(row=15, column=1)
 root.mainloop()

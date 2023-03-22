@@ -16,7 +16,7 @@ A list of current features includes:
 - Removal of Bonus Stages!
 - Cursed and Super Cursed: Only one goal per level will send you forward! 
 
-The `.json` file writes to the same location as the executable, and the course in-game is always **SMB2 Marathon**.
+The `.json` file writes to the same location as the executable, and the course in-game by default is **SMB2 Marathon**.
 
 Feel free to add suggestions through Issues, report problems, or contribute directly with Pull Requests!
 

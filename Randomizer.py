@@ -396,7 +396,7 @@ def Randomize():
 
     file = open("Randomized.json", "w")
     OutputIndex = CourseNames.index(CourseList.get())
-    file.write("{\"course_defs\": {\"" + TrueCourseNames[OutputIndex] + "\" : {\"next_course\": \"Invalid\",\"start_movie_id\": \"Invalid\",\"end_movie_id\": \"Invalid\",\"course_stages\": [")
+    file.write("\n {\"name\":\"Randomized Course Replacing: " + CourseNames[OutputIndex] + "\",\"course_defs\": {\"" + TrueCourseNames[OutputIndex] + "\" : {\"next_course\": \"Invalid\",\"start_movie_id\": \"Invalid\",\"end_movie_id\": \"Invalid\",\"course_stages\": [")
     i = 0
     for x in RandomizerList:
         if i == 0:
@@ -686,6 +686,7 @@ def ImportConfig():
     if len(datalist) != 38:
         messagebox.showinfo(title='Error!', message='It looks like you\'ve selected an invalid config file. Please try again!')
     else:
+        W1.set("")
         W1.set(datalist[0])
         W2.set(datalist[1])
         W3.set(datalist[2])
@@ -710,25 +711,33 @@ def ImportConfig():
         Unused.set(datalist[21])
         GreenBool.set(datalist[22])
         GreenBoolCheck()
+
+        GreenMin.delete(0, END)
         GreenMin.insert(0, datalist[23])
+        GreenMax.delete(0, END)
         GreenMax.insert(0, datalist[24])
         RedBool.set(datalist[25])
         RedBoolCheck()
+        RedMin.delete(0, END)
         RedMin.insert(0, datalist[26])
+        RedMax.delete(0, END)
         RedMax.insert(0, datalist[27])
         CountBool.set(datalist[28])
         LevelCountCheck()
+        LevelCount.delete(0, END)
         LevelCount.insert(0, datalist[29])
         DuplicateBool.set(datalist[30])
         BonusBool.set(datalist[31])
         ExtrasBool.set(datalist[32])
         ExtrasCommand()
+        ExtrasInput.delete(0, END)
         ExtrasInput.insert(0, datalist[33])
         CourseList.set(CourseNames[int(datalist[34])])
         Cursed.set(datalist[35])
         CursedCommand()
         SuperCursed.set(datalist[36])
         SuperCursedCommand()
+        Seed.delete(0, END)
         Seed.insert(0, datalist[37])
 
 ExportButton = Button(root, text="Export Config", command = ExportConfig)

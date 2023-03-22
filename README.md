@@ -1,6 +1,6 @@
 # Banana Mania Randomizer!
 
-This tool requires [`SMBBM Course Modifier`](https://gamebanana.com/tools/9723) to work it creates a .json file for use with this mod!
+This tool requires [`SMBBM Course Modifier`](https://gamebanana.com/tools/9723) to work. It creates a .json file for use with this mod!
 
 The Banana Mania Randomizer is a customizable randomization program that allows for custom difficulties to be created!
 
